@@ -1,0 +1,111 @@
+{
+  "langName": "English",
+  "overview": {
+    "title": "System Overview",
+    "ollamaStatus": "Ollama Status",
+    "runningModel": "Running Model",
+    "gpu": "GPU",
+    "cpu": "CPU",
+    "cpuSub": "usage",
+    "memory": "Memory",
+    "installedModels": "Installed Models",
+    "installedSub": "local models",
+    "recent": "Recent Requests"
+  },
+  "tokens": {
+    "title": "Token Statistics",
+    "todayIn": "Today In",
+    "todayOut": "Today Out",
+    "todayTotal": "Today Total",
+    "cumulative": "Cumulative Total",
+    "currentSpeed": "Current Speed",
+    "avgSpeed": "Average Speed",
+    "dailyChart": "Daily Token Usage (7 days)",
+    "perModel": "Tokens by Model"
+  },
+  "models": {
+    "title": "Installed Models",
+    "name": "Name",
+    "params": "Parameters",
+    "size": "Size",
+    "context": "Context",
+    "status": "Status",
+    "vram": "VRAM",
+    "uptime": "Keep-alive"
+  },
+  "hardware": {
+    "title": "Hardware Monitor",
+    "gpuUtil": "GPU Utilization (%)",
+    "vram": "GPU VRAM (MB)",
+    "gpuTemp": "GPU Temperature (°C)",
+    "cpuChart": "CPU Usage (%)",
+    "memChart": "Memory Usage (%)"
+  },
+  "history": {
+    "title": "Request History",
+    "searchPlaceholder": "Search model / status…",
+    "clearDate": "Clear date",
+    "export": "Export CSV",
+    "clear": "Clear history",
+    "time": "Time",
+    "model": "Model",
+    "in": "In Tokens",
+    "out": "Out Tokens",
+    "speed": "Speed (tok/s)",
+    "duration": "Duration",
+    "status": "Status",
+    "detailTitle": "Request Detail"
+  },
+  "status": {
+    "online": "Online",
+    "offline": "Offline",
+    "success": "Success",
+    "error": "Error",
+    "interrupted": "Interrupted",
+    "running": "Running",
+    "idle": "Not loaded"
+  },
+  "detail": {
+    "model": "Model",
+    "time": "Time",
+    "stream": "Streaming",
+    "status": "Status",
+    "promptTokens": "Input Tokens",
+    "completionTokens": "Output Tokens",
+    "totalTokens": "Total Tokens",
+    "speed": "Generation Speed",
+    "totalDuration": "Total Duration",
+    "evalDuration": "Eval Duration",
+    "loadDuration": "Load Duration",
+    "ttft": "Time to First Token",
+    "error": "Error",
+    "client": "Client"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "seconds": "s",
+    "ms": "ms",
+    "tokens": "tokens",
+    "requests": "requests",
+    "loading": "Loading…",
+    "noData": "No data",
+    "na": "N/A",
+    "prev": "Prev",
+    "next": "Next",
+    "page": "Page {page} / {total}",
+    "emptyHistory": "No requests recorded yet",
+    "emptyModels": "No installed models detected",
+    "confirmClear": "Clear ALL request history? This cannot be undone.",
+    "confirmClearDate": "Clear the selected date filter?",
+    "footerNote": "All data stays on this machine — nothing is uploaded.",
+    "proxyNote": "Note: only requests routed through the proxy (localhost:4000) are fully tracked; requests that bypass it and hit 11434 directly cannot be recorded."
+  },
+  "nav": {
+    "overview": "Overview",
+    "tokens": "Tokens",
+    "models": "Models",
+    "hardware": "Hardware",
+    "history": "History"
+  }
+}

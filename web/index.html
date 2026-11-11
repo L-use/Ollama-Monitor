@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ollama Monitor</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">📡</span>
+      <span class="brand-name">Ollama Monitor</span>
+    </div>
+    <div class="topbar-right">
+      <span class="status-pill" id="ollamaPill" data-state="offline">
+        <span class="dot"></span><span id="ollamaPillText">离线</span>
+      </span>
+      <button class="theme-btn" id="themeToggle" title="切换主题">🌓</button>
+      <button class="lang-btn" id="langToggle" title="Switch language">English</button>
+    </div>
+  </header>
+
+  <main class="board">
+
+    <section class="card" id="sec-overview">
+      <h2 data-i18n="overview.title">系统概况</h2>
+      <div class="overview-grid">
+        <div class="stat"><div class="stat-label" data-i18n="overview.ollamaStatus">Ollama</div><div class="stat-value" id="ovOllama">—</div><div class="stat-sub" id="ovOllamaVersion"></div></div>
+        <div class="stat"><div class="stat-label" data-i18n="overview.runningModel">运行模型</div><div class="stat-value" id="ovRunningModel">—</div><div class="stat-sub" id="ovRunningModelSub"></div></div>
+        <div class="stat"><div class="stat-label" data-i18n="overview.gpu">GPU</div><div class="stat-value" id="ovGpu">—</div><div class="stat-sub" id="ovGpuSub"></div></div>
+        <div class="stat"><div class="stat-label" data-i18n="overview.cpu">CPU</div><div class="stat-value" id="ovCpu">—</div><div class="stat-sub" data-i18n="overview.cpuSub">使用率</div></div>
+        <div class="stat"><div class="stat-label" data-i18n="overview.memory">内存</div><div class="stat-value" id="ovMem">—</div><div class="stat-sub" id="ovMemSub"></div></div>
+        <div class="stat"><div class="stat-label" data-i18n="overview.installedModels">已安装</div><div class="stat-value" id="ovInstalled">—</div><div class="stat-sub" data-i18n="overview.installedSub">本地模型</div></div>
+      </div>
+    </section>
+
+    <section class="card" id="sec-tokens">
+      <h2 data-i18n="tokens.title">Token 统计</h2>
+      <div class="tokens-grid">
+        <div class="stat accent"><div class="stat-label" data-i18n="tokens.todayIn">今日输入</div><div class="stat-value" id="tkTodayIn">0</div></div>
+        <div class="stat accent"><div class="stat-label" data-i18n="tokens.todayOut">今日输出</div><div class="stat-value" id="tkTodayOut">0</div></div>
+        <div class="stat accent"><div class="stat-label" data-i18n="tokens.todayTotal">今日总</div><div class="stat-value" id="tkTodayTotal">0</div></div>
+        <div class="stat"><div class="stat-label" data-i18n="tokens.cumulative">累计</div><div class="stat-value" id="tkTotal">0</div></div>
+        <div class="stat"><div class="stat-label" data-i18n="tokens.currentSpeed">当前速度</div><div class="stat-value" id="tkCurrentSpeed">—</div></div>
+        <div class="stat"><div class="stat-label" data-i18n="tokens.avgSpeed">平均速度</div><div class="stat-value" id="tkAvgSpeed">—</div></div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-box daily-box">
+          <h3 data-i18n="tokens.dailyChart">每日用量（7天）</h3>
+          <div class="daily-canvas-wrap"><canvas id="dailyChart"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h3 data-i18n="tokens.perModel">各模型占比</h3>
+          <div id="perModelList" class="per-model-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="sec-hardware">
+      <h2 data-i18n="hardware.title">硬件监控</h2>
+      <div class="hw-charts">
+        <div class="chart-box"><h3 data-i18n="hardware.gpuUtil">GPU 使用率 (%)</h3><div class="hw-canvas"><canvas id="gpuChart"></canvas></div></div>
+        <div class="chart-box"><h3 data-i18n="hardware.vram">GPU 显存 (MB)</h3><div class="hw-canvas"><canvas id="vramChart"></canvas></div></div>
+        <div class="chart-box"><h3 data-i18n="hardware.gpuTemp">GPU 温度 (°C)</h3><div class="hw-canvas"><canvas id="tempChart"></canvas></div></div>
+        <div class="chart-box"><h3 data-i18n="hardware.cpuChart">CPU 使用率 (%)</h3><div class="hw-canvas"><canvas id="cpuChart"></canvas></div></div>
+        <div class="chart-box"><h3 data-i18n="hardware.memChart">内存使用率 (%)</h3><div class="hw-canvas"><canvas id="memChart"></canvas></div></div>
+      </div>
+    </section>
+
+    <section class="card" id="sec-models">
+      <h2 data-i18n="models.title">已安装模型</h2>
+      <div class="table-wrap">
+        <table class="table" id="modelsTable">
+          <thead><tr>
+            <th data-i18n="models.name">模型</th>
+            <th data-i18n="models.params">参数</th>
+            <th data-i18n="models.size">大小</th>
+            <th data-i18n="models.context">上下文</th>
+            <th data-i18n="models.status">状态</th>
+            <th data-i18n="models.vram">显存</th>
+            <th data-i18n="models.uptime">保活</th>
+          </tr></thead>
+          <tbody id="modelsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="sec-history">
+      <h2 data-i18n="history.title">请求历史</h2>
+      <div class="history-controls">
+        <select id="filterModel"><option value="">全部模型</option></select>
+        <input type="date" id="filterDate" />
+        <input type="search" id="filterSearch" data-i18n-placeholder="history.searchPlaceholder" placeholder="搜索…" />
+        <button class="btn" id="btnClearDate" data-i18n="history.clearDate">清除日期</button>
+        <button class="btn" id="btnExport" data-i18n="history.export">导出 CSV</button>
+        <button class="btn danger" id="btnClearHistory" data-i18n="history.clear">清空</button>
+      </div>
+      <div class="table-wrap history-scroll">
+        <table class="table" id="historyTable">
+          <thead><tr>
+            <th data-i18n="history.time">时间</th>
+            <th data-i18n="history.model">模型</th>
+            <th data-i18n="history.in">输入</th>
+            <th data-i18n="history.out">输出</th>
+            <th data-i18n="history.speed">速度</th>
+            <th data-i18n="history.duration">耗时</th>
+            <th data-i18n="history.status">状态</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </section>
+
+  </main>
+
+  <div class="modal-backdrop" id="detailModal" hidden>
+    <div class="modal">
+      <div class="modal-head">
+        <h3 data-i18n="history.detailTitle">请求详情</h3>
+        <button class="modal-close" id="detailClose">✕</button>
+      </div>
+      <div class="modal-body" id="detailBody"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>Ollama Monitor</span>
+    <span class="muted" id="footerNote">所有数据仅保存在本机，不会上传云端。</span>
+  </footer>
+
+  <script src="/lib/chart.umd.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "language": "zh-CN",
+  "ollama_url": "http://127.0.0.1:11434",
+  "listen_host": "0.0.0.0",
+  "listen_port": 4000,
+  "lan_access": true,
+  "auto_open_browser": true,
+  "hardware_refresh_seconds": 1.0,
+  "history_retention_days": 0
+}

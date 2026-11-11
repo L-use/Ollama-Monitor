@@ -1,0 +1,35 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# ---------- Build artifacts ----------
+build/
+dist/
+*.spec
+package/
+
+# ---------- Runtime data (never commit) ----------
+data/*
+!data/.gitkeep
+logs/*
+!logs/.gitkeep
+config/settings.json.tmp
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+.lock
+
+# ---------- OS / editor ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
